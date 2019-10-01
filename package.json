@@ -1,0 +1,22 @@
+{
+  "name": "contacts-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melliEve/contacts-app.git"
+  },
+  "author": "melliEve",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/melliEve/contacts-app/issues"
+  },
+  "homepage": "https://github.com/melliEve/contacts-app#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
