@@ -1,96 +1,124 @@
-let body = document.querySelector('body');
+body = document.querySelector('body')
 
-let header = document.createElement('h1');
-header.innerHTML = "kontakter";
-body.append(header);
+const tableKey = 'table';
 
-let div = document.createElement('div');
-div.innerHTML = '';
-body.append(div);
-div.setAttribute('class', 'table-container');
+let table;
+let tableDemo = {
+  'Bobby Jones': {
+    'phone': '076-05-83-093',
+    'email': 'mel@hotmail.com'
+  },
+  'Robbie Jones': {
+    'phone': '078-05-88-098',
+    'email': 'mello@yahoo.com'
+  }
+}
 
-let div1 = document.createElement('row');
-div1.innerHTML = '';
-div.append(div1);
-div1.setAttribute('class', 'table-row');
+let refreshDOMTable = () => {
+  
+  table = tableDemo;
 
-let div2 = document.createElement('div');
-div2.innerHTML = 'Namn';
-div1.append(div2);
-div2.setAttribute('class', 'table-column header name');
-
-let div3 = document.createElement('div');
-div3.innerHTML = 'Nummer';
-div1.append(div3);
-div3.setAttribute('class', 'table-column header phone');
-
-let div4 = document.createElement('div');
-div4.innerHTML = 'Email';
-div1.append(div4);
-div4.setAttribute('class', 'table-column header email');
-
-let span = document.createElement('span');
-span.innerHTML = '';
-div.append(span);
-span.setAttribute('id', 'tableBody');
-
-//modal beginns here
-let div5 = document.createElement('div');
-div5.innerHTML = '';
-body.append(div5);
-div5.setAttribute('class', 'disable-modal');
-div5.setAttribute('id', 'backdrop');
-
-let div6 = document.createElement('div');
-div6.innerHTML = '';
-body.append(div6);
-div6.setAttribute('class', 'disable-modal');
-div6.setAttribute('id', 'newPersonModal');
-
-let addNewPerson = document.createElement('h4');
-addNewPerson.innerHTML = 'Lägg till ny kontakt';
-div6.append(addNewPerson);
-
-let label = document.createElement('label');
-label.innerHTML = 'Namn';
-div6.append(label);
-label.setAttribute('for', 'newPersonName');
-
-let nameInput = document.createElement('input');
-nameInput.innerHTML = 'name';
-div6.append(nameInput);
-nameInput.setAttribute('type', 'text');
-nameInput.setAttribute('id', 'newPersonName');
+  let tableKeys = Object.keys(table); //[Bobby, Robbie]
+ 
+  let tableContainer = document.getElementById('tableContainer');
+  let oldTableBody = document.getElementById('tableBody');
+  //tableContainer.remove(oldTableBody);
+  let newTableBody = document.createElement('span');
+  newTableBody.setAttribute('id', 'tableBody');
 
 
-let label1 = document.createElement('label');
-label1.innerHTML = 'Telefonnummer';
-div6.append(label1);
-label1.setAttribute('for', 'newPersonPhone');
+  for (let i = 0; i < tableKeys.length; i++) {
+    let currentRow = document.createElement('div');
+    currentRow.setAttribute('class', 'table-row');
 
-let numberInput = document.createElement('input');
-numberInput.innerHTML = 'phone';
-div6.append(numberInput);
-numberInput.setAttribute('type', 'text');
-numberInput.setAttribute('id', 'newPersonPhone');
+    let currentNameColumn = document.createElement('div');
+    currentNameColumn.setAttribute('class', 'table-column name');
 
-let label2 = document.createElement('label');
-label2.innerHTML = 'Email';
-div6.append(label2);
-label2.setAttribute('for', 'newPersonEmail');
+    let currentPhoneColumn = document.createElement('div');
+    currentPhoneColumn.setAttribute('class', 'table-column phone')
 
-let emailInput = document.createElement('input');
-emailInput.innerHTML = 'email';
-div6.append(emailInput);
-emailInput.setAttribute('type', 'text');
-emailInput.setAttribute('id', 'newPersonEmail');
+    let currentEmailColumn = document.createElement('div');
+    currentEmailColumn.setAttribute('class', 'table-column email');
 
-let cancelBtn = document.createElement('button');
-cancelBtn.innerHTML = "Avbryt";
-div6.append(cancelBtn);
-cancelBtn.setAttribute('id', 'newPersonCancelBtn');
+    let currentEditBtn = document.createElement('span');
+    currentEditBtn.setAttribute('class', 'table-column edit i');
 
-let saveBtn = document.createElement('button');
-saveBtn.innerHTML = "Spara";
-div6.append(saveBtn);
-saveBtn.setAttribute('id', 'newPersonSaveBtn');
+    let currentDeleteBtn = document.createElement('span');
+    currentDeleteBtn.setAttribute('class', 'table-column delete i');
+
+    currentNameColumn.innerHTML = tableKeys[i];
+    currentPhoneColumn.innerHTML = table[tableKeys[i]].phone;
+    currentEmailColumn.innerHTML = table[tableKeys[i]].email;
+
+    currentEditBtn.innerHTML = '<i class="fas fa-edit"></i>'
+    currentDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>'
+
+    currentRow.append(currentNameColumn);
+    currentRow.append(currentPhoneColumn);
+    currentRow.append(currentEmailColumn);
+    currentRow.append(currentEditBtn);
+    currentRow.append(currentDeleteBtn);
+    newTableBody.append(currentRow);
+  }
+
+  let enableDisableNewUserModal = (option) => {
+    let newPersonName = document.getElementById('newPersonName');
+    let newPersonPhone = document.getElementById('newPersonPhone');
+    let newPersonEmail = document.getElementById('newPersonEmail');
+    newPersonName.value = '';
+    newPersonPhone.value = '';
+    newPersonEmail.value = '';
+
+    let newPersonModal = document.getElementById('newPersonModal');
+    let backdrop = document.getElementById('backdrop');
+
+    newPersonModal.setAttribute('class', `${option}-modal`);
+    backdrop.setAttribute('class', `${option}-modal`);
+  }
+
+  let addNewEntryBtn = document.getElementById('addNewEntry');
+  let editBtns = document.getElementsByClassName('edit');
+  let deleteBtns = document.getElementsByClassName('delete');
+
+  let cancelBtn = document.getElementById('newPersonCancelBtn');
+  
+  let saveBtn = document.getElementById('newPersonSaveBtn');
+  saveBtn.addEventListener('click', () => {
+
+    let newPersonName = document.getElementById('newPersonName').value.trim();
+    let newPersonPhone = document.getElementById('newPersonPhone').value.trim();
+    let newPersonEmail = document.getElementById('newPersonEmail').value.trim();
+
+    if (newPersonName === '')
+      newPersonName.className = 'input-err';
+    else newPersonName.className = '';
+
+    if (newPersonPhone === '')
+      newPersonPhone.className = 'input-err';
+    else newPersonPhone.className = '';
+
+    if (newPersonEmail === '')
+      newPersonEmail.className = 'input-err';
+    else newPersonEmail.className = '';
+
+    if (newPersonName !== '' && newPersonPhone !== '' && newPersonEmail !== '') {
+      let newPerson = {};
+      table[newPersonName] = {
+        'phone': newPersonPhone,
+        'email': newPersonEmail
+      }
+      localStorage.setItem(tableKey, JSON.stringify(table));
+      enableDisableNewUserModal('disable');
+      console.log('hi 1')
+      refreshDOMTable();
+    }
+  });
+
+  addNewEntryBtn.addEventListener('click', () => {
+    enableDisableNewUserModal('enable');
+    refreshDOMTable();
+
+  });
+
+}
+refreshDOMTable(console.log('hi 3'));
