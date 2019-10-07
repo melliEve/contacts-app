@@ -23,15 +23,15 @@ headerName.innerHTML = 'Namn';
 row.append(headerName);
 headerName.setAttribute('class', 'table-column header name');
 
-// let headerPhone = document.createElement('div');
-// headerPhone.innerHTML = 'Nummer';
-// row.append(headerPhone);
-// headerPhone.setAttribute('class', 'table-column header phone');
+let headerPhone = document.createElement('div');
+headerPhone.innerHTML = 'Nummer';
+row.append(headerPhone);
+headerPhone.setAttribute('class', 'table-column header phone');
 
-// let headerEmail = document.createElement('div');
-// headerEmail.innerHTML = 'Email';
-// row.append(headerEmail);
-//headerEmail.setAttribute('class', 'table-column header email');
+let headerEmail = document.createElement('div');
+headerEmail.innerHTML = 'Email';
+row.append(headerEmail);
+headerEmail.setAttribute('class', 'table-column header email');
 
 let addNewEntry = document.createElement('div');
 addNewEntry.innerHTML = '+';

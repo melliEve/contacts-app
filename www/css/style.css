@@ -100,11 +100,11 @@ h1 {
 }
 
 #newPersonSaveBtn {
-  background-color: rgb(141, 141, 212);
+  background-color: rgb(15, 168, 48);
 }
 
 #newPersonCancelBtn {
-  background-color: rgb(141, 141, 212);
+  background-color: rgb(216, 58, 19);
 }
 
 button {
@@ -120,13 +120,13 @@ button:hover {
   padding: 13px;
 }
 
- /* .disable-modal {
+  .disable-modal {
     visibility: hidden;
   }
 
   .enable-modal {
     visibility: visible;
-  }  */
+  }  
 
 i {
   pointer-events: none;
