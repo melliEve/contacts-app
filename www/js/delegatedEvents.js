@@ -47,7 +47,7 @@ let deleteContactFromList = (userName) => {
   refreshDOMTable(console.log('!!??!?!?!??!'));
 }
 
-listener = listen('click', '.delete', e => {
+listen('click', '.delete', e => {
   let contactToDelete = e.target.parentElement.children[0].innerText;
   let isSure = window.confirm('är du säkert att du vill ta bort ' + contactToDelete + ' från listan?')
   if (isSure) {
@@ -69,10 +69,6 @@ listener = listen('click', '.edit', e => {
   newPersonPhone.value = personToEdit.phone;
   newPersonEmail.value = personToEdit.email;
 });
-
-// let addNewEntryBtn = document.querySelector('#addNewEntry');
-// let editBtns = document.querySelector('.edit');
-// let deleteBtns = document.querySelector('.delete');
 
 listener = listen('click', '#addNewEntry', () => {
   //remove previous error styling
@@ -110,7 +106,7 @@ listener = listen('click', '#newPersonSaveBtn', () => {
     }
     localStorage.setItem(tableKey, JSON.stringify(table));
     enableDisableNewUserModal('disable');
-    refreshDOMTable('saved to localStorage');
+    refreshDOMTable(console.log('saved to localStorage'));
   }
 });
 
