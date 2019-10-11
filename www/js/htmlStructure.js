@@ -1,3 +1,4 @@
+
 let body = document.querySelector('body');
 
 let header = document.createElement('h1');
@@ -12,6 +13,33 @@ container.setAttribute('class', 'table-container');
 container.setAttribute('id', 'tableContainer');
 
 //create row inside container
+let row1 = document.createElement('div');
+row1.innerHTML = '';
+container.append(row1);
+row1.setAttribute('class', 'table-row');
+
+let searchInputLabel = document.createElement('label');
+searchInputLabel.innerHTML = 'search input';
+row1.append(searchInputLabel);
+searchInputLabel.setAttribute('for', 'searchContact');
+
+let form = document.createElement('form');
+form.innerHTML = '';
+row1.append(form);
+form.setAttribute('name', 'myForm');
+
+let searchInput = document.createElement('input');
+searchInput.innerHTML = '';
+form.append(searchInput);
+searchInput.setAttribute('type', 'search');
+searchInput.setAttribute('id', 'searchContact');
+
+let searchInputBtn = document.createElement('button');
+searchInputBtn.innerHTML = 'sök';
+row1.append(searchInputBtn);
+searchInputBtn.setAttribute('id', 'searchContactBtn');
+
+//create row inside container
 let row = document.createElement('div');
 row.innerHTML = '';
 container.append(row);
@@ -24,7 +52,7 @@ row.append(headerName);
 headerName.setAttribute('class', 'table-column header name');
 
 let headerPhone = document.createElement('div');
-headerPhone.innerHTML = 'Nummer';
+headerPhone.innerHTML = 'Telefonnummer';
 row.append(headerPhone);
 headerPhone.setAttribute('class', 'table-column header phone');
 
@@ -68,7 +96,7 @@ newPersonModal.append(nameInputLabel);
 nameInputLabel.setAttribute('for', 'newPersonName');
 
 let nameInput = document.createElement('input');
-nameInput.innerHTML = 'name';
+nameInput.innerHTML = '';
 newPersonModal.append(nameInput);
 nameInput.setAttribute('type', 'text');
 nameInput.setAttribute('id', 'newPersonName');
@@ -80,7 +108,7 @@ newPersonModal.append(numberInputLabel);
 numberInputLabel.setAttribute('for', 'newPersonPhone');
 
 let numberInput = document.createElement('input');
-numberInput.innerHTML = 'phone';
+numberInput.innerHTML = '';
 newPersonModal.append(numberInput);
 numberInput.setAttribute('type', 'text');
 numberInput.setAttribute('id', 'newPersonPhone');
@@ -92,7 +120,7 @@ newPersonModal.append(emailInputLabel);
 emailInputLabel.setAttribute('for', 'newPersonEmail');
 
 let emailInput = document.createElement('input');
-emailInput.innerHTML = 'email';
+emailInput.innerHTML = '';
 newPersonModal.append(emailInput);
 emailInput.setAttribute('type', 'text');
 emailInput.setAttribute('id', 'newPersonEmail');
