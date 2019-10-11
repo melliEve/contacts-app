@@ -15,10 +15,7 @@ table;
 // }
 
 let refreshDOMTable = () => {
-
-  //table;
-
-  let tableKeys = Object.keys(table); //[Bobby, Robbie]
+  let tableKeys = Object.keys(table); //[contactName, contactName]
 
   let tableContainer = document.querySelector('#tableContainer');
   let oldTableBody = document.querySelector('#tableBody');
