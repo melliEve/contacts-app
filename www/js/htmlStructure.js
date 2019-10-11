@@ -18,15 +18,16 @@ row1.innerHTML = '';
 container.append(row1);
 row1.setAttribute('class', 'table-row');
 
-let searchInputLabel = document.createElement('label');
-searchInputLabel.innerHTML = 'search input';
-row1.append(searchInputLabel);
-searchInputLabel.setAttribute('for', 'searchContact');
-
 let form = document.createElement('form');
 form.innerHTML = '';
 row1.append(form);
 form.setAttribute('name', 'myForm');
+
+let searchInputLabel = document.createElement('label');
+searchInputLabel.innerHTML = '';
+row1.append(searchInputLabel);
+searchInputLabel.setAttribute('for', 'searchContact');
+
 
 let searchInput = document.createElement('input');
 searchInput.innerHTML = '';
