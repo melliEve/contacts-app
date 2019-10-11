@@ -15,7 +15,12 @@ table;
 // }
 
 let refreshDOMTable = () => {
+  
+  //table = tableDemo
+  table;
   let tableKeys = Object.keys(table); //[contactName, contactName]
+  let id = [0];
+  tableKeys.map(tableKey => {tableKey.id = id++ });
 
   let tableContainer = document.querySelector('#tableContainer');
   let oldTableBody = document.querySelector('#tableBody');
@@ -56,7 +61,7 @@ let refreshDOMTable = () => {
     currentRow.append(currentDeleteBtn);
   }
 }
-// refreshDOMTable(console.log('hi 3'));
+ //refreshDOMTable(console.log('hi 3'));
 
 let init = () => {
 
@@ -64,7 +69,7 @@ let init = () => {
     table = JSON.parse(localStorage.getItem(tableKey));
   }
   else {
-    //table = tableDemo;
+   // table = tableDemo;
     localStorage.setItem(tableKey, JSON.stringify(table))
   }
   refreshDOMTable();
