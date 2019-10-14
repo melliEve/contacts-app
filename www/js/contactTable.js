@@ -1,26 +1,21 @@
-body = document.querySelector('body')
+//body = document.querySelector('body')
 
 const tableKey = 'table';
 
-table;
+contacts = [];
 // let tableDemo = {
-//   'Bobby Jones': {
-//     'phone': '076-05-83-093',
-//     'email': 'mel@hotmail.com'
-//   },
-//   'Robbie Jones': {
-//     'phone': '078-05-88-098',
-//     'email': 'mello@yahoo.com'
-//   }
-// }
+  //   'Bobby Jones': {
+    //     'phone': '076-05-83-093',
+    //     'email': 'mel@hotmail.com'
+    //   },
+    //   'Robbie Jones': {
+      //     'phone': '078-05-88-098',
+      //     'email': 'mello@yahoo.com'
+      //   }
+      // }
 
 let refreshDOMTable = () => {
-  
-  //table = tableDemo
-  table;
-  let tableKeys = Object.keys(table); //[contactName, contactName]
-  let id = [0];
-  tableKeys.map(tableKey => {tableKey.id = id++ });
+  console.log(contacts);
 
   let tableContainer = document.querySelector('#tableContainer');
   let oldTableBody = document.querySelector('#tableBody');
@@ -30,23 +25,24 @@ let refreshDOMTable = () => {
   newTableBody.setAttribute('id', 'tableBody');
   tableContainer.append(newTableBody);
 
-  for (let i = 0; i < tableKeys.length; i++) {
+  for (let i = 0; i < contacts.length; i++) {
     let currentRow = document.createElement('div');
     currentRow.setAttribute('class', 'table-row');
+    currentRow.setAttribute('contact-index', i)
     newTableBody.append(currentRow);
 
     let currentNameColumn = document.createElement('div');
-    currentNameColumn.innerHTML = tableKeys[i];
+    currentNameColumn.innerHTML = contacts[i].name;
     currentNameColumn.setAttribute('class', 'table-column name');
     currentRow.append(currentNameColumn);
 
     let currentPhoneColumn = document.createElement('div');
-    currentPhoneColumn.innerHTML = table[tableKeys[i]].phone;
+    currentPhoneColumn.innerHTML = contacts[i].phone;
     currentPhoneColumn.setAttribute('class', 'table-column phone')
     currentRow.append(currentPhoneColumn);
 
     let currentEmailColumn = document.createElement('div');
-    currentEmailColumn.innerHTML = table[tableKeys[i]].email;
+    currentEmailColumn.innerHTML = contacts[i].email;
     currentEmailColumn.setAttribute('class', 'table-column email');
     currentRow.append(currentEmailColumn);
 
@@ -61,16 +57,15 @@ let refreshDOMTable = () => {
     currentRow.append(currentDeleteBtn);
   }
 }
- //refreshDOMTable(console.log('hi 3'));
 
 let init = () => {
 
   if (localStorage.getItem(tableKey)) {
-    table = JSON.parse(localStorage.getItem(tableKey));
+    contacts = JSON.parse(localStorage.getItem(tableKey));
   }
   else {
    // table = tableDemo;
-    localStorage.setItem(tableKey, JSON.stringify(table))
+    localStorage.setItem(tableKey, JSON.stringify(contacts))
   }
   refreshDOMTable();
 }
