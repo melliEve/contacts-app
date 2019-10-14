@@ -1,5 +1,5 @@
 //const tableKey = 'table';
-let table;
+let contacts = [];
 // We use a self executing function "our own private universe"
 // and export the things we want to be public
 const [listen, unlisten] = (() => {
@@ -36,41 +36,42 @@ const [listen, unlisten] = (() => {
 
 let deleteContactFromList = (userName) => {
   let tempTable = {};
-  let tableKeys = Object.keys(table);
+  let tableKeys = Object.keys(contacts);
   for (let i = 0; i < tableKeys.length; i++) {
     if (userName !== tableKeys[i]) {
-      tempTable[tableKeys[i]] = table[tableKeys[i]];
+      tempTable[tableKeys[i]] = contacts[tableKeys[i]];
     }
   }
-  table = tempTable;
-  localStorage.setItem(tableKey, JSON.stringify(table));
+  contacts = tempTable;
+  localStorage.setItem(tableKey, JSON.stringify(contacts));
   refreshDOMTable(console.log('!!??!?!?!??!'));
 }
 
-listen('click', '.delete', e => {
+deleteListener = listen('click', '.delete', e => {
   let contactToDelete = e.target.parentElement.children[0].innerText;
   let isSure = window.confirm('är du säkert att du vill ta bort ' + contactToDelete + ' från listan?')
   if (isSure) {
     deleteContactFromList(contactToDelete);
     console.log('contactToDelete', contactToDelete);
-    
+
   }
 });
 
-listener = listen('click', '.edit', e => {
+editListener = listen('click', '.edit', e => {
 
-  let nameToEdit = e.target.parentElement.children[0].innerText;
-  let personToEdit = table[nameToEdit];
+  let indexToEdit = e.target.closest('.table-row').getAttribute('contact-index');
+  let personToEdit = contacts[indexToEdit];
   enableDisableNewUserModal('enable');
   let newPersonName = document.querySelector('#newPersonName');
   let newPersonPhone = document.querySelector('#newPersonPhone');
   let newPersonEmail = document.querySelector('#newPersonEmail');
-  newPersonName.value = nameToEdit;
+  newPersonName.value = personToEdit.name;
   newPersonPhone.value = personToEdit.phone;
   newPersonEmail.value = personToEdit.email;
+  newPersonName.parentElement.setAttribute('contact-index', indexToEdit)
 });
 
-listener = listen('click', '#addNewEntry', () => {
+addEntryListener = listen('click', '#addNewEntry', () => {
   //remove previous error styling
   let inputs = [...document.querySelectorAll('#newPersonModal input')];
   for (input of inputs) { input.className = ''; }
@@ -78,7 +79,7 @@ listener = listen('click', '#addNewEntry', () => {
   refreshDOMTable();
 });
 
-listener = listen('click', '#newPersonSaveBtn', () => {
+savBtnListener = listen('click', '#newPersonSaveBtn', () => {
   let newPersonName = document.querySelector('#newPersonName').value.trim();
   let newPersonPhone = document.querySelector('#newPersonPhone').value.trim();
   let newPersonEmail = document.querySelector('#newPersonEmail').value.trim();
@@ -99,21 +100,26 @@ listener = listen('click', '#newPersonSaveBtn', () => {
     document.querySelector('#newPersonEmail').className = '';
 
   if (newPersonName !== '' && newPersonPhone !== '' && newPersonEmail !== '') {
-    let newPerson = {};
-    table[newPersonName] = {
+    let newPerson = {
+      'name': newPersonName,
       'phone': newPersonPhone,
       'email': newPersonEmail
     }
-    localStorage.setItem(tableKey, JSON.stringify(table));
+
+    contacts = [
+      ...contacts,
+      newPerson
+    ];
+    
+    localStorage.setItem(tableKey, JSON.stringify(contacts));
     enableDisableNewUserModal('disable');
     refreshDOMTable(console.log('saved to localStorage'));
   }
 });
 
-listener = listen('click', '#newPersonCancelBtn', e => {
+cancelBtnListener = listen('click', '#newPersonCancelBtn', e => {
   enableDisableNewUserModal('disable')
 });
-
 
 
 
