@@ -1,21 +1,8 @@
-//body = document.querySelector('body')
-
-const tableKey = 'table';
-
 contacts = [];
-// let tableDemo = {
-  //   'Bobby Jones': {
-    //     'phone': '076-05-83-093',
-    //     'email': 'mel@hotmail.com'
-    //   },
-    //   'Robbie Jones': {
-      //     'phone': '078-05-88-098',
-      //     'email': 'mello@yahoo.com'
-      //   }
-      // }
+
 
 let refreshDOMTable = () => {
-  console.log(contacts);
+  console.log(contacts, 'contact-index');
 
   let tableContainer = document.querySelector('#tableContainer');
   let oldTableBody = document.querySelector('#tableBody');
@@ -55,17 +42,19 @@ let refreshDOMTable = () => {
     currentDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>'
     currentDeleteBtn.setAttribute('class', 'table-column delete i');
     currentRow.append(currentDeleteBtn);
+
+
+    let currentHistoryBtn = document.createElement('span');
+    currentHistoryBtn.innerHTML = '<i class="fas fa-info"></i>'
+    currentHistoryBtn.setAttribute('class', 'table-column info i');
+    currentRow.append(currentHistoryBtn);
   }
 }
 
 let init = () => {
 
-  if (localStorage.getItem(tableKey)) {
-    contacts = JSON.parse(localStorage.getItem(tableKey));
-  }
-  else {
-   // table = tableDemo;
-    localStorage.setItem(tableKey, JSON.stringify(contacts))
+  if (localStorage.getItem('contacts')) {
+    contacts = JSON.parse(localStorage.getItem('contacts'));
   }
   refreshDOMTable();
 }
