@@ -1,3 +1,5 @@
+
+
 //const tableKey = 'table';
 let contacts = [];
 // We use a self executing function "our own private universe"
@@ -34,22 +36,16 @@ const [listen, unlisten] = (() => {
   return [listen, unlisten];
 })();
 
-let deleteContactFromList = (userName) => {
-  let tempTable = {};
-  let tableKeys = Object.keys(contacts);
-  for (let i = 0; i < tableKeys.length; i++) {
-    if (userName !== tableKeys[i]) {
-      tempTable[tableKeys[i]] = contacts[tableKeys[i]];
-    }
-  }
-  contacts = tempTable;
-  localStorage.setItem(tableKey, JSON.stringify(contacts));
-  refreshDOMTable(console.log('!!??!?!?!??!'));
+let deleteContactFromList = (i) => {
+  contacts = contacts.filter((contact, index) => index != i)
+
+  localStorage.setItem('contacts', JSON.stringify(contacts));
+  refreshDOMTable();
 }
 
 deleteListener = listen('click', '.delete', e => {
-  let contactToDelete = e.target.parentElement.children[0].innerText;
-  let isSure = window.confirm('är du säkert att du vill ta bort ' + contactToDelete + ' från listan?')
+  let contactToDelete = e.target.closest('.table-row').getAttribute('contact-index');
+  let isSure = window.confirm('är du säkert att du vill ta bort ' + contacts[contactToDelete].name + ' från listan?')
   if (isSure) {
     deleteContactFromList(contactToDelete);
     console.log('contactToDelete', contactToDelete);
@@ -58,6 +54,9 @@ deleteListener = listen('click', '.delete', e => {
 });
 
 editListener = listen('click', '.edit', e => {
+  //remove previous error styling
+  let inputs = [...document.querySelectorAll('#newPersonModal input')];
+  for (input of inputs) { input.className = ''; }
 
   let indexToEdit = e.target.closest('.table-row').getAttribute('contact-index');
   let personToEdit = contacts[indexToEdit];
@@ -75,11 +74,15 @@ addEntryListener = listen('click', '#addNewEntry', () => {
   //remove previous error styling
   let inputs = [...document.querySelectorAll('#newPersonModal input')];
   for (input of inputs) { input.className = ''; }
+
+  newPersonName.parentElement.setAttribute('contact-index', '');
+  console.log('contact-index');
+
   enableDisableNewUserModal('enable');
   refreshDOMTable();
 });
 
-savBtnListener = listen('click', '#newPersonSaveBtn', () => {
+saveBtnListener = listen('click', '#newPersonSaveBtn', () => {
   let newPersonName = document.querySelector('#newPersonName').value.trim();
   let newPersonPhone = document.querySelector('#newPersonPhone').value.trim();
   let newPersonEmail = document.querySelector('#newPersonEmail').value.trim();
@@ -103,15 +106,36 @@ savBtnListener = listen('click', '#newPersonSaveBtn', () => {
     let newPerson = {
       'name': newPersonName,
       'phone': newPersonPhone,
-      'email': newPersonEmail
+      'email': newPersonEmail,
+      'logs': []
     }
 
-    contacts = [
-      ...contacts,
+    let indexToEdit = document.querySelector('#newPersonModal').getAttribute('contact-index');
+    if (indexToEdit) {
+      //save changes
+
+      contacts[indexToEdit] = newPerson
+    } else {
+      //add new contact
+      contacts = [
+        ...contacts,
+        newPerson
+      ];
+    }
+
+    //for log[]:
+    ///skapa en copia av gamla newPerson and add the update
+    let log = [
+      ...newPerson,
       newPerson
-    ];
-    
-    localStorage.setItem(tableKey, JSON.stringify(contacts));
+    ]
+    log.forEach(function(log) {
+      console.log(log)
+    });
+
+
+
+    localStorage.setItem('contacts', JSON.stringify(contacts));
     enableDisableNewUserModal('disable');
     refreshDOMTable(console.log('saved to localStorage'));
   }
