@@ -1,7 +1,5 @@
 
-
-//const tableKey = 'table';
-let contacts = [];
+contacts = [];
 // We use a self executing function "our own private universe"
 // and export the things we want to be public
 const [listen, unlisten] = (() => {
@@ -48,35 +46,37 @@ deleteListener = listen('click', '.delete', e => {
   let isSure = window.confirm('är du säkert att du vill ta bort ' + contacts[contactToDelete].name + ' från listan?')
   if (isSure) {
     deleteContactFromList(contactToDelete);
-    console.log('contactToDelete', contactToDelete);
-
   }
 });
 
 editListener = listen('click', '.edit', e => {
+
+  document.querySelector('#modalHeader').innerHTML = "Redigera kontakten";
+
   //remove previous error styling
   let inputs = [...document.querySelectorAll('#newPersonModal input')];
   for (input of inputs) { input.className = ''; }
 
+  //grab the current contact
   let indexToEdit = e.target.closest('.table-row').getAttribute('contact-index');
   let personToEdit = contacts[indexToEdit];
-  enableDisableNewUserModal('enable');
+  enableDisableNewUserModal('.enable');
   let newPersonName = document.querySelector('#newPersonName');
-  let newPersonPhone = document.querySelector('#newPersonPhone');
-  let newPersonEmail = document.querySelector('#newPersonEmail');
   newPersonName.value = personToEdit.name;
+  let newPersonPhone = document.querySelector('#newPersonPhone');
   newPersonPhone.value = personToEdit.phone;
+  let newPersonEmail = document.querySelector('#newPersonEmail');
   newPersonEmail.value = personToEdit.email;
   newPersonName.parentElement.setAttribute('contact-index', indexToEdit)
 });
 
 addEntryListener = listen('click', '#addNewEntry', () => {
+  document.querySelector('#modalHeader').innerHTML = "Lägg till ny kontakt";
   //remove previous error styling
   let inputs = [...document.querySelectorAll('#newPersonModal input')];
   for (input of inputs) { input.className = ''; }
 
   newPersonName.parentElement.setAttribute('contact-index', '');
-  console.log('contact-index');
 
   enableDisableNewUserModal('enable');
   refreshDOMTable();
@@ -92,29 +92,20 @@ saveBtnListener = listen('click', '#newPersonSaveBtn', () => {
   else
     document.querySelector('#newPersonName').className = '';
 
-  if (newPersonPhone === '')
-    document.querySelector('#newPersonPhone').className = 'input-err';
-  else
-    document.querySelector('#newPersonPhone').className = '';
-
-  if (newPersonEmail === '')
-    document.querySelector('#newPersonEmail').className = 'input-err';
-  else
-    document.querySelector('#newPersonEmail').className = '';
-
-  if (newPersonName !== '' && newPersonPhone !== '' && newPersonEmail !== '') {
-    let newPerson = {
-      'name': newPersonName,
-      'phone': newPersonPhone,
-      'email': newPersonEmail,
-      'logs': []
-    }
+  if (newPersonName !== '' || newPersonPhone !== '' || newPersonEmail !== '') {
+    let newPerson = new Person(newPersonName, newPersonPhone, newPersonEmail);
 
     let indexToEdit = document.querySelector('#newPersonModal').getAttribute('contact-index');
-    if (indexToEdit) {
+    if (indexToEdit !== '') {
       //save changes
 
-      contacts[indexToEdit] = newPerson
+      let personToEdit = contacts[indexToEdit];
+
+      let oldContact = createHistoryContact(personToEdit.name, personToEdit.phone, personToEdit.email, personToEdit.id);
+      let newContactInHistory = createHistoryContact(newPerson.name, newPerson.phone, newPerson.email, newPerson.id);
+      newPerson.history = [...personToEdit.history, oldContact, newContactInHistory];
+
+      contacts[indexToEdit] = newPerson;
     } else {
       //add new contact
       contacts = [
@@ -122,18 +113,6 @@ saveBtnListener = listen('click', '#newPersonSaveBtn', () => {
         newPerson
       ];
     }
-
-    //for log[]:
-    ///skapa en copia av gamla newPerson and add the update
-    let log = [
-      ...newPerson,
-      newPerson
-    ]
-    log.forEach(function(log) {
-      console.log(log)
-    });
-
-
 
     localStorage.setItem('contacts', JSON.stringify(contacts));
     enableDisableNewUserModal('disable');
@@ -145,5 +124,8 @@ cancelBtnListener = listen('click', '#newPersonCancelBtn', e => {
   enableDisableNewUserModal('disable')
 });
 
+returnBtn = listen('click', '#returnBtn', () => {
+  window.location.reload();
+  console.log('works?');
 
-
+})
