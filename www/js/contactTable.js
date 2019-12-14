@@ -1,8 +1,6 @@
-contacts = [];
-
+let contacts = [];
 
 let refreshDOMTable = () => {
-  console.log(contacts, 'contact-index');
 
   let tableContainer = document.querySelector('#tableContainer');
   let oldTableBody = document.querySelector('#tableBody');
@@ -34,20 +32,20 @@ let refreshDOMTable = () => {
     currentRow.append(currentEmailColumn);
 
     let currentEditBtn = document.createElement('span');
-    currentEditBtn.innerHTML = '<i class="fas fa-edit"></i>'
+    currentEditBtn.innerHTML = '<i class="fas fa-edit"></i>';
     currentEditBtn.setAttribute('class', 'table-column edit i');
     currentRow.append(currentEditBtn);
 
     let currentDeleteBtn = document.createElement('span');
-    currentDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>'
+    currentDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
     currentDeleteBtn.setAttribute('class', 'table-column delete i');
     currentRow.append(currentDeleteBtn);
 
 
-    let currentHistoryBtn = document.createElement('span');
-    currentHistoryBtn.innerHTML = '<i class="fas fa-info"></i>'
-    currentHistoryBtn.setAttribute('class', 'table-column info i');
-    currentRow.append(currentHistoryBtn);
+    let currentInfoBtn = document.createElement('span');
+    currentInfoBtn.innerHTML = '<a href = "/contact/' + contacts[i].id + '"><i class="fas fa-info"></i></a>'
+    currentInfoBtn.setAttribute('class', 'table-column info i');
+    currentRow.append(currentInfoBtn);
   }
 }
 
