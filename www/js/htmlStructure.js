@@ -52,6 +52,24 @@ tableBody.innerHTML = '';
 table.append(tableBody); //or should it be container.append(tableBody);
 tableBody.setAttribute('id', 'tableBody');
 
+//history modal 
+let historyModalBackdrop = document.createElement('div');
+historyModalBackdrop.innerHTML = '';
+body.append(historyModalBackdrop);
+historyModalBackdrop.setAttribute('class', 'disable-modal');
+historyModalBackdrop.setAttribute('id', 'backdrop');
+
+let showHistoryModal = document.createElement('div');
+showHistoryModal.innerHTML = '';
+body.append(showHistoryModal);
+showHistoryModal.setAttribute('class', 'disable-modal');
+showHistoryModal.setAttribute('id', 'showHistoryModal');
+
+let modalHeader1 = document.createElement('h4');
+modalHeader1.innerHTML = 'visar kontakt';
+showHistoryModal.append(modalHeader1);
+modalHeader1.setAttribute('id', 'modalHeader')
+
 //modal beginns here
 let modalBackdrop = document.createElement('div');
 modalBackdrop.innerHTML = '';
