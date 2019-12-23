@@ -9,11 +9,16 @@ let refreshDOMTable = () => {
   let newTableBody = document.createElement('span');
   newTableBody.setAttribute('id', 'tableBody');
   tableContainer.append(newTableBody);
+  let contactInfo = document.createElement('div');
+  contactInfo.setAttribute('class', 'contactInfo');
+  tableContainer.append(contactInfo);
+
 
   for (let i = 0; i < contacts.length; i++) {
     let currentRow = document.createElement('div');
     currentRow.setAttribute('class', 'table-row');
-    currentRow.setAttribute('contact-index', i)
+    currentRow.setAttribute('contact-index', i);
+    currentRow.setAttribute('contact-parent', contacts[i].id);
     newTableBody.append(currentRow);
 
     let currentNameColumn = document.createElement('div');
