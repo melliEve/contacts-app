@@ -49,9 +49,9 @@ deleteListener = listen('click', '.delete', e => {
   }
 });
 
-editListener = listen('click', '.edit', e => {
-
-  document.querySelector('#modalHeader').innerHTML = "Redigera kontakten";
+editListener = listen('click', '.edit', (e, input) => {
+  // console.log(document.querySelector('.modalHeader'))
+  document.querySelector('.modalHeader').innerHTML = "Redigera kontakten";
 
   //remove previous error styling
   let inputs = [...document.querySelectorAll('#newPersonModal input')];
@@ -71,7 +71,7 @@ editListener = listen('click', '.edit', e => {
 });
 
 addEntryListener = listen('click', '#addNewEntry', () => {
-  document.querySelector('#modalHeader').innerHTML = "Lägg till ny kontakt";
+  document.querySelector('.modalHeader').innerHTML = "Lägg till ny kontakt";
   //remove previous error styling
   let inputs = [...document.querySelectorAll('#newPersonModal input')];
   for (input of inputs) { input.className = ''; }
@@ -123,6 +123,22 @@ saveBtnListener = listen('click', '#newPersonSaveBtn', () => {
 cancelBtnListener = listen('click', '#newPersonCancelBtn', e => {
   enableDisableNewUserModal('disable')
 });
+
+listen('click', '.chose-version', e => {
+  let id = e.target.getAttribute('data-ref');
+  let newVersionKey = e.target.getAttribute('dataKey');
+  
+  console.log('hej', id);
+
+  let contact = contacts.filter(contact => {
+    if (contact.id === id) {
+      return contact;
+    }
+  })
+  contact[0].id = newVersionKey;
+  localStorage.setItem('contacts', JSON.stringify(contacts));
+  historyInfoBody.innerHTML = ''
+})
 
 returnBtn = listen('click', '#returnBtn', () => {
   window.location.reload();
