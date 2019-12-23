@@ -49,26 +49,26 @@ addNewEntry.setAttribute('id', 'addNewEntry');
 //TABLEBODY
 let tableBody = document.createElement('span');
 tableBody.innerHTML = '';
-table.append(tableBody); //or should it be container.append(tableBody);
+table.append(tableBody);
 tableBody.setAttribute('id', 'tableBody');
 
-//history modal 
-let historyModalBackdrop = document.createElement('div');
-historyModalBackdrop.innerHTML = '';
-body.append(historyModalBackdrop);
-historyModalBackdrop.setAttribute('class', 'disable-modal');
-historyModalBackdrop.setAttribute('id', 'backdrop');
+// //history modal 
+// let historyModalBackdrop = document.createElement('div');
+// historyModalBackdrop.innerHTML = '';
+// body.append(historyModalBackdrop);
+// historyModalBackdrop.setAttribute('class', 'disable-modal');
+// historyModalBackdrop.setAttribute('id', 'historyModalBackdrop');
 
-let showHistoryModal = document.createElement('div');
-showHistoryModal.innerHTML = '';
-body.append(showHistoryModal);
-showHistoryModal.setAttribute('class', 'disable-modal');
-showHistoryModal.setAttribute('id', 'showHistoryModal');
+// let historyModal = document.createElement('div');
+// historyModal.innerHTML = '';
+// body.append(historyModal);
+// historyModal.setAttribute('class', 'disable-modal');
+// historyModal.setAttribute('id', 'historyModal');
 
-let modalHeader1 = document.createElement('h4');
-modalHeader1.innerHTML = 'visar kontakt';
-showHistoryModal.append(modalHeader1);
-modalHeader1.setAttribute('id', 'modalHeader')
+// let historyModalHeader = document.createElement('h4');
+// historyModalHeader.innerHTML = 'visar kontakt';
+// historyModal.append(historyModalHeader);
+// historyModalHeader.setAttribute('class', 'modalHeader')
 
 //modal beginns here
 let modalBackdrop = document.createElement('div');
@@ -86,7 +86,7 @@ newPersonModal.setAttribute('id', 'newPersonModal');
 let modalHeader = document.createElement('h4');
 modalHeader.innerHTML = 'Lägg till ny kontakt';
 newPersonModal.append(modalHeader);
-modalHeader.setAttribute('id', 'modalHeader')
+modalHeader.setAttribute('class', 'modalHeader')
 
 //name
 let nameInputLabel = document.createElement('label');
@@ -157,6 +157,9 @@ saveBtn.innerHTML = "Spara";
 newPersonModal.append(saveBtn);
 saveBtn.setAttribute('id', 'newPersonSaveBtn');
 
-
+// let contactInfoCard = document.createElement('div');
+// contactInfoCard.innerHTML = '';
+// container.append(contactInfoCard);
+// contactInfoCard.setAttribute('class','contactInfoCard');
 
 
