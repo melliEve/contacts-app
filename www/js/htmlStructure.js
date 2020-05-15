@@ -1,165 +1,244 @@
-
+// DOM element begin
 let body = document.querySelector('body');
 
-let header = document.createElement('h1');
-header.innerHTML = "kontakter";
-body.append(header);
+// Wrap Div
+let wrapperDiv = document.createElement('div');
+wrapperDiv.innerHTML = '';
+body.append(wrapperDiv);
+wrapperDiv.setAttribute('class', 'wrapperDiv');
+wrapperDiv.setAttribute('id', 'wrapper');
 
-//create container
-let container = document.createElement('section');
+// Page headline
+let headerDiv = document.createElement('h1');
+headerDiv.innerHTML = 'Mina Kontakter';
+wrapperDiv.append(headerDiv);
+headerDiv.setAttribute('class', 'pageHeader');
+
+// div container
+let container = document.createElement('container');
 container.innerHTML = '';
-body.append(container);
+wrapperDiv.append(container);
 container.setAttribute('class', 'table-container');
 container.setAttribute('id', 'tableContainer');
 
-//create row inside container
-let row1 = document.createElement('div');
-row1.innerHTML = '';
-container.append(row1);
-row1.setAttribute('class', 'table-row');
 
-//create a table 
-let table = document.createElement('table');
-table.innerHTML = '';
-container.append(table);
-table.setAttribute('class', 'table-row');
+// create a row
+let row = document.createElement('div');
+row.innerHTML = '';
+container.append(row);
+row.setAttribute('class', 'table-row');
+row.setAttribute('id', 'tableRow');
 
-//create columns inside row
-let headerName = document.createElement('div');
-headerName.innerHTML = 'Namn';
-table.append(headerName);
-headerName.setAttribute('class', 'table-column header name');
 
-let headerPhone = document.createElement('div');
-headerPhone.innerHTML = 'Telefonnummer';
-table.append(headerPhone);
-headerPhone.setAttribute('class', 'table-column header phone');
+// name column
+let nameColumn = document.createElement('div');
+nameColumn.innerHTML = 'Namn';
+row.append(nameColumn);
+nameColumn.setAttribute('class', 'table-column name');
+nameColumn.setAttribute('route', '/');
 
-let headerEmail = document.createElement('div');
-headerEmail.innerHTML = 'Email';
-table.append(headerEmail);
-headerEmail.setAttribute('class', 'table-column header email');
+// number column
+let phoneColumn = document.createElement('div');
+phoneColumn.innerHTML = 'Telefonnummer';
+row.append(phoneColumn);
+phoneColumn.setAttribute('class', 'table-column phone');
+phoneColumn.setAttribute('id', 'list');
 
-let addNewEntry = document.createElement('div');
-addNewEntry.innerHTML = '+';
-table.append(addNewEntry);
-addNewEntry.setAttribute('class', 'table-column header add-entry-column');
-addNewEntry.setAttribute('id', 'addNewEntry');
+// email column
+let emailColumn = document.createElement('div');
+emailColumn.innerHTML = 'Email';
+row.append(emailColumn);
+emailColumn.setAttribute('class', 'table-column email');
+emailColumn.setAttribute('id', 'list');
 
-//TABLEBODY
-let tableBody = document.createElement('span');
-tableBody.innerHTML = '';
-table.append(tableBody);
-tableBody.setAttribute('id', 'tableBody');
+// add new number
+let addEntry = document.createElement('div');
+addEntry.innerHTML = '+';
+row.append(addEntry);
+addEntry.setAttribute('class', 'table-column add-entry');
+addEntry.setAttribute('id', 'addNewEntry');
 
-// //history modal 
-// let historyModalBackdrop = document.createElement('div');
-// historyModalBackdrop.innerHTML = '';
-// body.append(historyModalBackdrop);
-// historyModalBackdrop.setAttribute('class', 'disable-modal');
-// historyModalBackdrop.setAttribute('id', 'historyModalBackdrop');
+// table body
+let span = document.createElement('span');
+span.innerHTML = '';
+row.append(span);
+span.setAttribute('id', 'tableBody');
 
-// let historyModal = document.createElement('div');
-// historyModal.innerHTML = '';
-// body.append(historyModal);
-// historyModal.setAttribute('class', 'disable-modal');
-// historyModal.setAttribute('id', 'historyModal');
+// add new contact modal 
+let backdrop = document.createElement('div');
+backdrop.innerHTML = '';
+wrapperDiv.append(backdrop);
+backdrop.setAttribute('class', 'disable-modal');
+backdrop.setAttribute('id', 'backdrop');
 
-// let historyModalHeader = document.createElement('h4');
-// historyModalHeader.innerHTML = 'visar kontakt';
-// historyModal.append(historyModalHeader);
-// historyModalHeader.setAttribute('class', 'modalHeader')
+let newContactModal = document.createElement('div');
+newContactModal.innerHTML = '';
+wrapperDiv.append(newContactModal);
+newContactModal.setAttribute('class', 'disable-modal');
+newContactModal.setAttribute('id', 'newContactModal');
 
-//modal beginns here
-let modalBackdrop = document.createElement('div');
-modalBackdrop.innerHTML = '';
-body.append(modalBackdrop);
-modalBackdrop.setAttribute('class', 'disable-modal');
-modalBackdrop.setAttribute('id', 'backdrop');
-
-let newPersonModal = document.createElement('div');
-newPersonModal.innerHTML = '';
-body.append(newPersonModal);
-newPersonModal.setAttribute('class', 'disable-modal');
-newPersonModal.setAttribute('id', 'newPersonModal');
-
-let modalHeader = document.createElement('h4');
+let modalHeader = document.createElement('h2');
 modalHeader.innerHTML = 'Lägg till ny kontakt';
-newPersonModal.append(modalHeader);
-modalHeader.setAttribute('class', 'modalHeader')
+newContactModal.append(modalHeader);
+modalHeader.setAttribute('class', 'modalHeader');
 
-//name
-let nameInputLabel = document.createElement('label');
-nameInputLabel.innerHTML = 'Namn';
-newPersonModal.append(nameInputLabel);
-nameInputLabel.setAttribute('for', 'newPersonName');
-nameInputLabel.setAttribute('id', 'nameLabel');
+// name label
+let newContactNameLabel = document.createElement('label');
+newContactNameLabel.innerHTML = 'Namn';
+newContactModal.append(newContactNameLabel);
+newContactNameLabel.setAttribute('for', 'newContactName');
 
-let nameInput = document.createElement('input');
-nameInput.innerHTML = '';
-newPersonModal.append(nameInput);
-nameInput.setAttribute('type', 'text');
-nameInput.setAttribute('value', '')
-nameInput.setAttribute('id', 'newPersonName');
+let newContactNameInput = document.createElement('input');
+newContactModal.append(newContactNameInput);
+newContactNameInput.setAttribute('type', 'text');
+newContactNameInput.setAttribute('id', 'newContactName');
 
-//phone number
-let numberRow = document.createElement('div');
-newPersonModal.append(numberRow);
+// phone label
+let newContactPhoneLabel = document.createElement('label');
+newContactPhoneLabel.innerHTML = 'Telefonnummer';
+newContactModal.append(newContactPhoneLabel);
+newContactPhoneLabel.setAttribute('for', 'newContactPhone');
 
-let numberInputLabel = document.createElement('label');
-numberInputLabel.innerHTML = 'Nummer';
-numberRow.append(numberInputLabel);
-numberInputLabel.setAttribute('for', 'newPersonPhone');
-numberInputLabel.setAttribute('id', 'phoneLabel');
+let newContactEmailDiv = document.createElement('div');
+newContactModal.append(newContactEmailDiv);
 
-let numberInput = document.createElement('input');
-numberInput.innerHTML = '';
-numberRow.append(numberInput);
-numberInput.setAttribute('type', 'text');
-numberInput.setAttribute('id', 'newPersonPhone');
+let newContactPhoneInput = document.createElement('input');
+newContactPhoneInput.innerHTML = '';
+newContactEmailDiv.append(newContactPhoneInput);
+newContactPhoneInput.setAttribute('type', 'text');
+newContactPhoneInput.setAttribute('id', 'newContactPhone');
 
-let addNumberInput = document.createElement('button');
-addNumberInput.innerHTML = '+';
-numberRow.append(addNumberInput);
-addNumberInput.setAttribute('class', 'table-column header add-number-column');
-addNumberInput.setAttribute('id', 'addNumberInput');
+// to add another number input row
+let addNumberBtn = document.createElement('button');
+addNumberBtn.innerHTML = '+';
+newContactEmailDiv.append(addNumberBtn);
+addNumberBtn.setAttribute('class', 'table-column header add-number');
+addNumberBtn.setAttribute('id', 'addNumberBtn');
 
-//email
-let emailRow = document.createElement('div');
-newPersonModal.append(emailRow);
+// email label
+let newContactEmailLabel = document.createElement('label');
+newContactEmailLabel.innerHTML = 'Email';
+newContactModal.append(newContactEmailLabel);
+newContactEmailLabel.setAttribute('for', 'newContactEmail');
 
-let emailInputLabel = document.createElement('label');
-emailInputLabel.innerHTML = 'Email';
-emailRow.append(emailInputLabel);
-emailInputLabel.setAttribute('for', 'newPersonEmail');
-emailInputLabel.setAttribute('id', 'emailLabel');
+let newContactEmailDiv = document.createElement('div');
+newContactModal.append(newContactEmailDiv);
 
-let emailInput = document.createElement('input');
-emailInput.innerHTML = '';
-emailRow.append(emailInput);
-emailInput.setAttribute('type', 'text');
-emailInput.setAttribute('id', 'newPersonEmail');
+let newContactEmailInput = document.createElement('input');
+newContactEmailInput.innerHTML = '';
+newContactModal.append(newContactEmailInput);
+newContactEmailInput.setAttribute('type', 'text');
+newContactEmailInput.setAttribute('id', 'newContactEmail');
 
+// to add another email input row
 let addEmailInput = document.createElement('button');
 addEmailInput.innerHTML = '+';
-emailRow.append(addEmailInput);
-addEmailInput.setAttribute('class', 'table-column header add-email-column');
+newContactEmailInput.append(addEmailInput);
+addEmailInput.setAttribute('class', 'table-column header add-email');
 addEmailInput.setAttribute('id', 'addEmailInput');
 
+// modal save button
+let newContactSaveBtn = document.createElement('button');
+newContactSaveBtn.innerHTML = 'Spara';
+newContactModal.append(newContactSaveBtn);
+newContactSaveBtn.setAttribute('id', 'newContactSaveBtn');
+newContactSaveBtn.setAttribute('class', 'disable-button');
 
-let cancelBtn = document.createElement('button');
-cancelBtn.innerHTML = "Avbryt";
-newPersonModal.append(cancelBtn);
-cancelBtn.setAttribute('id', 'newPersonCancelBtn');
+// modal cancel button 
+let modalButtonCancel = document.createElement('button');
+modalButtonCancel.innerHTML = 'Avbryt';
+newContactModal.append(modalButtonCancel);
+modalButtonCancel.setAttribute('id', 'newContactCancelBtn');
 
-let saveBtn = document.createElement('button');
-saveBtn.innerHTML = "Spara";
-newPersonModal.append(saveBtn);
-saveBtn.setAttribute('id', 'newPersonSaveBtn');
+// edit contact modal begins here and push it to history 
+let editContact = document.createElement('div');
+editContact.innerHTML = '';
+wrapperDiv.append(editContact);
+editContact.setAttribute('class', 'disable-editContact');
+editContact.setAttribute('id', 'editContact');
 
-// let contactInfoCard = document.createElement('div');
-// contactInfoCard.innerHTML = '';
-// container.append(contactInfoCard);
-// contactInfoCard.setAttribute('class','contactInfoCard');
+
+let editContactDetails = document.createElement('div');
+editContactDetails.innerHTML = '';
+editContact.append(editContactDetails);
+editContactDetails.setAttribute('class', 'editContactDetails');
+
+// edit contact modal header
+let editContactHeader = document.createElement('h1');
+editContactHeader.innerHTML = 'Redigera kontakt';
+editContactDetails.append(editContactHeader);
+editContactHeader.setAttribute('class', 'editContactHeader');
+
+// edit contact form begins
+let editContactForm = document.createElement('form');
+editContactForm.innerHTML = '';
+editContactDetails.append(editContactForm);
+editContactForm.setAttribute('id', 'editContactForm');
+
+// edit name 
+let editFormName = document.createElement('div');
+editFormName.innerHTML = '';
+editContactForm.append(editFormName);
+
+let editNameLabel = document.createElement('label');
+editNameLabel.innerHTML = 'Namn';
+editFormName.append(editNameLabel);
+editNameLabel.setAttribute('for', 'input-name');
+
+let editNameInput = document.createElement('input');
+editNameInput.innerHTML = '';
+editFormName.append(editNameInput);
+editNameInput.setAttribute('type', 'text');
+editNameInput.setAttribute('id', 'input-name');
+
+// edit phone number
+let editFormPhone = document.createElement('div');
+editFormPhone.innerHTML = '';
+editContactForm.append(editFormPhone);
+editFormPhone.setAttribute('class', 'form-box-error');
+editFormPhone.setAttribute('data-error-msg', '');
+
+let editPhoneLabel = document.createElement('label');
+editPhoneLabel.innerHTML = 'Telefonnummer';
+editFormPhone.append(editPhoneLabel);
+editPhoneLabel.setAttribute('for', 'input-phone');
+
+let editPhoneInput = document.createElement('input');
+editPhoneInput.innerHTML = '';
+editFormPhone.append(editPhoneInput);
+editPhoneInput.setAttribute('type', 'text');
+editPhoneInput.setAttribute('id', 'input-phone');
+
+// edit email
+let editFormEmail = document.createElement('div');
+editFormEmail.innerHTML = '';
+editContactForm.append(editFormEmail);
+editFormEmail.setAttribute('class', 'form-box-error');
+editFormEmail.setAttribute('data-error-msg', '');
+
+let editContactEmailLabel = document.createElement('label');
+editContactEmailLabel.innerHTML = 'Email';
+editFormEmail.append(editContactEmailLabel);
+editContactEmailLabel.setAttribute('for', 'input-email');
+
+let editContactEmailInput = document.createElement('input');
+editContactEmailInput.innerHTML = '';
+editFormEmail.append(editContactEmailInput);
+editContactEmailInput.setAttribute('type', 'text');
+editContactEmailInput.setAttribute('id', 'input-email');
+
+// edit submit button
+let editSubmitButton = document.createElement('button');
+editSubmitButton.innerHTML = 'Spara';
+editContactForm.append(editSubmitButton);
+editSubmitButton.setAttribute('id', 'editSubmitBtn');
+editSubmitButton.setAttribute('class', 'disable-button');
+
+// edit cancel button
+let editCancelButton = document.createElement('button');
+editCancelButton.innerHTML = 'Avbryt';
+editContactForm.append(editCancelButton);
+editCancelButton.setAttribute('id', 'editCancelBtn');
+
 
 
