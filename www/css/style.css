@@ -1,4 +1,4 @@
-/*@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 /* @import url('https://fonts.googleapis.com/css?family=Turret+Road&display=swap'); */
 
 body {
@@ -43,12 +43,9 @@ h1 {
   text-overflow: ellipsis;
 }
 
-.name {
+.name, .phone {
   flex-basis: 15%;
-}
-
-.phone {
-  flex-basis: 15%;
+  display: inline-block;
 }
 
 .email {
@@ -56,101 +53,29 @@ h1 {
   flex-basis: 15%;
 }
 
-.header {
+.pageHeader {
   background-color: rgba(145, 215, 236, 0.8);
   font-weight: bolder;
 }
 
 .edit,
 .delete,
-.info {
+.history {
   flex-basis: 5%;
   text-align: center;
   cursor: pointer;
 }
 
-.add-entry-column {
+.add-entry {
   flex-grow: 2;
   flex-basis: 5%;
   text-align: center;
   cursor: pointer;
 }
-/* 
-#searchContact {
-  flex-basis: 10%;
-  margin-bottom: 15px;
-  padding: 20px;
-  border: 3px;
-} */
-
-#phoneLabel {
-  width: 40%;
-  margin-right: 10px;
-}
-
-#nameLabel {
-  width: 40%;
-  margin-right: 28px;
-}
-
-#emailLabel {
-  width: 40%;
-  margin-right: 31px;
-}
-
-#newPersonModal {
-  width: 700px;
-  padding: 10px;
-  border-radius: 3px;
-  z-index: 99;
-  top: 50px;
-  position: absolute;
-  margin-left: calc(50% - 350px);
-  background-color: rgba(229, 235, 236, 0.8);
-  float: left;
-}
-
-#newPersonModal input {
-  display: inline-block;
-  margin-bottom: 15px;
-  padding: 20px;
-  border: 3px;
-  width: 60%;
-}
-
-.input-err {
-  background-color: rgb(196, 192, 192);
-}
-
-#backdrop {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: 50;
-  top: 0;
-  left: 0;
-}
-
-#newPersonSaveBtn {
-  display: inline-block;
-  background-color: rgb(15, 168, 48);
-}
-
-#newPersonCancelBtn {
-  display: inline-block;
-  background-color: rgb(216, 58, 19);
-}
-/* 
-#searchContactBtn {
-  background-color: rgba(145, 215, 236, 0.8);
-  margin-bottom: 15px;
-  margin-top: 0;
-  margin-left: 0;
-} */
 
 button {
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 7px;
   border: none;
   float: right;
   margin: 5px;
@@ -173,87 +98,178 @@ i {
   pointer-events: none;
 }
 
-/* @media only screen and (max-width: 400px) {
-  .table-container {
-    font-size: 10px;
-    margin-top: 35px;
-    width: 80%;
-    margin: auto;
-  }
-
-  .table-row {
-    padding-left: 80px;
-    padding-right: 80px;
-    display: flex;
-  }
-
-  .table-column {
-    background-color: rgba(145, 215, 236, 0.8);
-    margin: 3px;
-    padding: 15px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: flex;
-  }
-  .name {
-    flex-basis: 40%;
-    display: block;
-  }
-
-  .phone {
-    flex-basis: 15%;
-    display: none;
-  }
-
-  .email {
-    flex-grow: 2;
-    flex-basis: 15%;
-    display: none;
-  }
+.hidden {
+	display: none;
 }
 
-@media only screen and (max-width: 775px) {
-  .table-container {
-    font-size: 14px;
-    margin-top: 35px;
-    width: 80%;
-    margin: auto;
-  }
 
-  .table-row {
-    padding-left: 80px;
-    padding-right: 80px;
-    display: flex;
-  }
+/* Modal css begins */
+#newContactModal {
+	width: 600px;
+	padding: 10px;
+	border-radius: 7px;
+	z-index: 99;
+	top: 50px;
+	position: absolute;
+	display: center center;
+  margin-left: calc(50% - 350px);
+  background-color: rgba(223, 210, 210, 0.8);
+  float: left;
+}
 
-  .table-column {
-    background-color: rgba(145, 215, 236, 0.8);
-    margin: 3px;
-    padding: 15px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.modalHeader {
+	font-size: 30px;
+	font-family: 'Righteous';
+	text-align: center;
+}
+#newContactName,
+#newContactPhone,
+#newContactEmail{
+display: block;
+}
+#newContactModal input {
+  display: block;
+  display: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 3px;
+  width: 70%;
+}
+.input-error {
+  background-color: rgb(226, 154, 154);
+}
 
-  .add-entry-column {
-    text-align: center;
-    cursor: pointer;
-  }
+#backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+}
 
-  .name {
-    flex-basis: 30%;
-    display: flex;
-  }
+#newContactCancelBtn {
+  display: inline-block;
+	background-color: rgb(233, 59, 59);
+}
 
-  .phone {
-    flex-basis: 30%;
-    display: flex;
-  }
+#newContactSaveBtn {
+  margin-right: 29px;
+  border-radius: 7px;
+  display: inline-block;
+  background-color: rgb(30, 123, 49);
+}
+.editContactDetails {
+	background-color: rgba(223, 210, 210, 0.8);
+	width: 600px;
+	padding: 10px;
+	border-radius: 7px;
+	z-index: 99;
+	top: 50px;
+	position: absolute;
+	display: center center;
+	margin-left: calc(50% - 250px);
+}
 
-  .email {
-    flex-grow: 2;
-    flex-basis: 15%;
-    display: none;
-  }
-} */
+#input-name,
+#input-phone,
+#input-email {
+	display: block;
+	display: center;
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px;
+	width: 70%;
+}
+
+#editCancelBtn {
+  border-radius: 7px;
+	background-color: rgb(233, 59, 59);
+}
+
+#editSubmitBtn {
+  margin-right: 29px;
+  border-radius: 7px;
+  background-color: rgb(30, 123, 49);}
+button {
+	padding: 15px;
+	border-radius: 7px;
+	border: none;
+	float: right;
+	margin: 5px;
+	cursor: pointer;
+}
+
+button:hover {
+	color: rgba(9, 146, 238, 0.452);
+}
+
+.disable-modal {
+	visibility: hidden;
+}
+.enable-modal {
+	visibility: visible;
+}
+.disable-editContact {
+	visibility: hidden;
+}
+.enable-editContact {
+	visibility: visible;
+}
+
+i {
+	pointer-events: none;
+}
+
+#addNumberBtn,
+#addEmailInput {
+  border-radius: 7px;
+  display: inline;
+}
+
+
+.disable-history {
+	visibility: hidden;
+}
+.enable-history {
+	visibility: visible;
+}
+
+.hidden {
+	display: none;
+}
+
+.historyCard {
+  display: inline-block;
+	font-size: 14px;
+	background: rgba(166, 216, 236, 0.708);
+	color: black;
+  padding: 15px;
+  border-radius: 7px;
+  margin-bottom: 10px;
+  width: 25%;
+}
+
+.historyCard:hover {
+	background: rgb(196, 193, 193);
+}
+
+.historyCard.chosen {
+  border-style: double;
+  border-color: black;
+  display: inline-block;
+	background: rgb(145, 213, 233, 0.708);
+}
+
+.historyCardButton {
+  background: green;
+  border-radius: 7px;
+	padding: 10px;
+	cursor: pointer;
+}
+.cancelHistoryChange {
+  background: red;
+  border-radius: 7px;
+	padding: 10px;
+	cursor: pointer;
+}
