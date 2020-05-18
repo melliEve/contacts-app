@@ -6,14 +6,12 @@ class AllContacts {
   }
 
   editContact = (dataKey) => {
-
-    console.log(dataKey);
     let contactToEdit = {
       name: document.querySelector('#input-name').value,
       phone: document.querySelector('#input-phone').value,
       email: document.querySelector('#input-email').value
     };
-console.log(contacts)
+
     let contact = contacts[dataKey];
     contact.history.push(contactToEdit)
     contact.position++;
@@ -168,8 +166,6 @@ console.log(contacts)
 
     // Listen to Contact submit button
     listeners.push(listen('click', '#newContactSaveBtn', e => {
-      console.log('hej');
-
       if (e.target.closest('#newContactSaveBtn')) {
         createNewContact();
       };
@@ -190,7 +186,7 @@ console.log(contacts)
       let contactToEdit = e.target.closest('.table-row').getAttribute('data-index');
       let id = e.target.closest('.table-row').getAttribute('data-parent')
 
-      let contact = contacts.filter(contact => {        
+      let contact = contacts.filter(contact => {
         if (contact.id == id) {
           return contact;
         }
@@ -209,11 +205,8 @@ console.log(contacts)
 
     // Listen to edit Contact submit button
     listeners.push(listen('click', '#editSubmitBtn', e => {
-      console.log('hej');
-
       if (e.target.closest('#editSubmitBtn')) {
         e.preventDefault();
-
         let dataKeyHolder = document.querySelector('#editContact');
         let dataKey = dataKeyHolder.getAttribute('data-index');
 
@@ -229,6 +222,46 @@ console.log(contacts)
       }
     }));
 
+
+    // listen to add phone input button
+    listeners.push(listen('click', '.btn-add-more-phone', e => {
+      const addMorePhonenumbers = (e) => {
+        let counter = 1;
+        for (let i = 0; i < 3; i++) {
+          counter++
+        }
+        let myRow = document.querySelector('#id-row-phone');
+        let inputfieldMorePhonenumber = document.createElement('input');
+        inputfieldMorePhonenumber.setAttribute('type', 'text');
+        inputfieldMorePhonenumber.setAttribute('value', '');
+        inputfieldMorePhonenumber.setAttribute('id', `${counter}`);
+        inputfieldMorePhonenumber.setAttribute('class', 'newContactPhone');
+        myRow.append(inputfieldMorePhonenumber);
+      }
+      if (e.target.closest('.btn-add-more-phone')) {
+        addMorePhonenumbers();
+      }
+    }));
+
+    // add more email input
+    listeners.push(listen('click', '.btn-add-more-email', e => {
+      const addMoreEmail = (e) => {
+        let myRow = document.querySelector('#id-row-email');
+        let inputfieldMoreEmail = document.createElement('input');
+        inputfieldMoreEmail.setAttribute('type', 'text');
+        inputfieldMoreEmail.setAttribute('value', '');
+        inputfieldMoreEmail.setAttribute('id', 'newContactEmail');
+        inputfieldMoreEmail.setAttribute('class', 'newContactEmail');
+        myRow.append(inputfieldMoreEmail);
+        console.log('add email', inputfieldMoreEmail);
+      }
+      if (e.target.closest('.btn-add-more-email')) {
+        addMoreEmail();
+
+      }
+    }));
+
+
     // Delete contact
     let deleteUserFromTable = (i) => {
       contacts = contacts.filter((contact, index) => index != i);
@@ -239,9 +272,9 @@ console.log(contacts)
     // Listen to delete button
     listeners.push(listen('click', '.delete', e => {
       let contactToDelete = e.target.closest('.table-row').getAttribute('data-index');
-      let areYouSure = window.confirm('Är du säker att du vill ta bort denna kontakt?');
+      let confirmDelete = window.confirm('Är du säker att du vill ta bort denna kontakt?');
 
-      if (areYouSure)
+      if (confirmDelete)
         deleteUserFromTable(contactToDelete);
     }));
 
@@ -253,18 +286,20 @@ console.log(contacts)
         if (contact.id == id) {
           return contact;
         }
-      }) 
+      })
       contact = contact[0];
 
-      // Target history body div and fill it with all version
+      // fill historyBody with all versions
       let historyBody = document.querySelector('.historyBody')
       let chosen = parseInt(contact.position);
       let chosenId = contact.id;
 
 
-      function historyCard(data, index) {
+      function contactHistoryCard(data, index) {
+        console.log(data);
+
         return `
-        <div class="historyCard${index === chosen ? ' chosen' : ''}" data-key="${index}">
+        <div class="contactHistoryCard${index === chosen ? ' chosen' : ''}" data-key="${index}">
           <div class="${index === chosen ? '' : 'hidden'}">
           </div>
           <h2>Namn: ${data.name}</h2>
@@ -273,26 +308,26 @@ console.log(contacts)
             ${data.phone}
           </p>
           <p class="${!data.email ? 'hidden' : ''}">
-            <span>Emailt:</span>
+            <span>Email:</span>
             ${data.email}
           </p>
           <a class="cancelHistoryChange">Avbryt</a>
-          <a data-ref="${chosenId}" data-key="${index}" class="historyCardButton ${(index === chosen ? 'hidden' : 'd')}">Välj</a>
+          <a data-ref="${chosenId}" data-key="${index}" class="contactHistoryCardButton ${(index === chosen ? 'hidden' : 'd')}">Välj</a>
         </div>
         `
       }
 
       let html = ``;
       contact.history.map((version, index) => {
-        html += historyCard(version, index)
+        html += contactHistoryCard(version, index)
       })
 
       // And push it into the history div
       historyBody.innerHTML = html
     }));
 
-    // Listen for historyCard buttons to set the new version
-    listen('click', '.historyCardButton', e => {
+    // Listen for contactHistoryCard buttons to set the new version
+    listen('click', '.contactHistoryCardButton', e => {
       let id = e.target.getAttribute('data-ref')
       let newPositionKey = e.target.getAttribute('data-key')
 
