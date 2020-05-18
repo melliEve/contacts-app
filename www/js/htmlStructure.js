@@ -35,7 +35,7 @@ let nameColumn = document.createElement('div');
 nameColumn.innerHTML = 'Namn';
 row.append(nameColumn);
 nameColumn.setAttribute('class', 'table-column name');
-nameColumn.setAttribute('route', '/');
+// nameColumn.setAttribute('route', '/');
 
 // number column
 let phoneColumn = document.createElement('div');
@@ -92,50 +92,58 @@ let newContactNameInput = document.createElement('input');
 newContactModal.append(newContactNameInput);
 newContactNameInput.setAttribute('type', 'text');
 newContactNameInput.setAttribute('id', 'newContactName');
+newContactNameInput.setAttribute('class', 'input-name');
 
 // phone label
-let newContactPhoneLabel = document.createElement('label');
-newContactPhoneLabel.innerHTML = 'Telefonnummer';
-newContactModal.append(newContactPhoneLabel);
-newContactPhoneLabel.setAttribute('for', 'newContactPhone');
+let rowForPhoneNumber = document.createElement('row');
+rowForPhoneNumber.setAttribute('id', 'id-row-phone');
+rowForPhoneNumber.setAttribute('class', 'newContactPhone');
+newContactModal.append(rowForPhoneNumber);
 
-let newContactEmailDiv = document.createElement('div');
-newContactModal.append(newContactEmailDiv);
+let phoneNumberLabel = document.createElement('label');
+phoneNumberLabel.innerHTML = 'Telefonnummer';
+phoneNumberLabel.setAttribute('class', 'label');
+rowForPhoneNumber.append(phoneNumberLabel);
 
-let newContactPhoneInput = document.createElement('input');
-newContactPhoneInput.innerHTML = '';
-newContactEmailDiv.append(newContactPhoneInput);
-newContactPhoneInput.setAttribute('type', 'text');
-newContactPhoneInput.setAttribute('id', 'newContactPhone');
+let inputFieldPhonenumber = document.createElement('input');
+inputFieldPhonenumber.setAttribute('type', 'text');
+inputFieldPhonenumber.setAttribute('value', '');
+inputFieldPhonenumber.setAttribute('id', 'newContactPhone');
+inputFieldPhonenumber.setAttribute('class', 'input-phone');
+rowForPhoneNumber.append(inputFieldPhonenumber);
 
-// to add another number input row
-let addNumberBtn = document.createElement('button');
-addNumberBtn.innerHTML = '+';
-newContactEmailDiv.append(addNumberBtn);
-addNumberBtn.setAttribute('class', 'table-column header add-number');
-addNumberBtn.setAttribute('id', 'addNumberBtn');
+let buttonMorePhone = document.createElement('button');
+let iForPhone = document.createElement('i');
+iForPhone.innerHTML = '+';
+buttonMorePhone.setAttribute('class', 'btn-add-more-phone');
+buttonMorePhone.append(iForPhone);
+rowForPhoneNumber.append(buttonMorePhone);
 
 // email label
+let rowForEmail = document.createElement('row');
+rowForEmail.setAttribute('id', 'id-row-email')
+rowForEmail.setAttribute('class', 'row-for-email');
+newContactModal.append(rowForEmail);
+
 let newContactEmailLabel = document.createElement('label');
 newContactEmailLabel.innerHTML = 'Email';
-newContactModal.append(newContactEmailLabel);
-newContactEmailLabel.setAttribute('for', 'newContactEmail');
+newContactEmailLabel.setAttribute('class', 'label');
+rowForEmail.append(newContactEmailLabel);
 
-let newContactEmailDiv = document.createElement('div');
-newContactModal.append(newContactEmailDiv);
+let inputFieldEmail = document.createElement('input');
+inputFieldEmail.setAttribute('type', 'text');
+inputFieldEmail.setAttribute('value', '');
+inputFieldEmail.setAttribute('id', 'newContactEmail');
+inputFieldEmail.setAttribute('class', 'input-email');
+rowForEmail.append(inputFieldEmail);
 
-let newContactEmailInput = document.createElement('input');
-newContactEmailInput.innerHTML = '';
-newContactModal.append(newContactEmailInput);
-newContactEmailInput.setAttribute('type', 'text');
-newContactEmailInput.setAttribute('id', 'newContactEmail');
-
-// to add another email input row
-let addEmailInput = document.createElement('button');
-addEmailInput.innerHTML = '+';
-newContactEmailInput.append(addEmailInput);
-addEmailInput.setAttribute('class', 'table-column header add-email');
-addEmailInput.setAttribute('id', 'addEmailInput');
+let buttonMoreEmail = document.createElement('button');
+let iForEmail = document.createElement('i');
+iForEmail.innerHTML = '+';
+buttonMoreEmail.setAttribute('id', 'btn-add-more-email')
+buttonMoreEmail.setAttribute('class', 'btn-add-more-email');
+buttonMoreEmail.append(iForEmail)
+rowForEmail.append(buttonMoreEmail);
 
 // modal save button
 let newContactSaveBtn = document.createElement('button');
@@ -190,6 +198,7 @@ editNameInput.innerHTML = '';
 editFormName.append(editNameInput);
 editNameInput.setAttribute('type', 'text');
 editNameInput.setAttribute('id', 'input-name');
+editNameInput.setAttribute('class', 'input-name');
 
 // edit phone number
 let editFormPhone = document.createElement('div');

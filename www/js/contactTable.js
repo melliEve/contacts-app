@@ -123,9 +123,9 @@ class AllContacts {
     }));
 
     let createNewContact = () => {
-      let newContactName = document.querySelector('#newContactName').value.trim();
-      let newContactPhone = document.querySelector('#newContactPhone').value.trim();
-      let newContactEmail = document.querySelector('#newContactEmail').value.trim();
+      let newContactName = document.querySelector('#newContactName').value;
+      let newContactPhone= document.querySelector('#newContactPhone').value;
+      let newContactEmail = document.querySelector('#newContactEmail').value;
 
       if (newContactName === '')
         document.querySelector('#newContactName').className = 'input-error';
@@ -143,8 +143,8 @@ class AllContacts {
 
         let newContact = {
           'name': newContactName,
-          'phone': newContactPhone,
-          'email': newContactEmail,
+          'phone': [newContactPhone],
+          'email': [newContactEmail],
         };
 
         let newEntry = {
