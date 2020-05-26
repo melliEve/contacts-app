@@ -74,8 +74,8 @@ backdrop.setAttribute('id', 'backdrop');
 let newContactModal = document.createElement('div');
 newContactModal.innerHTML = '';
 wrapperDiv.append(newContactModal);
-newContactModal.setAttribute('class', 'disable-modal');
 newContactModal.setAttribute('id', 'newContactModal');
+newContactModal.setAttribute('class', 'disable-modal');
 
 let modalHeader = document.createElement('h2');
 modalHeader.innerHTML = 'Lägg till ny kontakt';
@@ -105,12 +105,12 @@ phoneNumberLabel.innerHTML = 'Telefonnummer';
 phoneNumberLabel.setAttribute('class', 'label');
 rowForPhoneNumber.append(phoneNumberLabel);
 
-let inputFieldPhonenumber = document.createElement('input');
-inputFieldPhonenumber.setAttribute('type', 'text');
-inputFieldPhonenumber.setAttribute('value', '');
-inputFieldPhonenumber.setAttribute('id', 'newContactPhone');
-inputFieldPhonenumber.setAttribute('class', 'input-phone');
-rowForPhoneNumber.append(inputFieldPhonenumber);
+let inputFieldPhoneNumber = document.createElement('input');
+inputFieldPhoneNumber.setAttribute('type', 'text');
+inputFieldPhoneNumber.setAttribute('value', '');
+inputFieldPhoneNumber.setAttribute('id', 'newContactPhone');
+inputFieldPhoneNumber.setAttribute('class', 'input-phone');
+rowForPhoneNumber.append(inputFieldPhoneNumber);
 
 let buttonMorePhone = document.createElement('button');
 let iForPhone = document.createElement('i');
