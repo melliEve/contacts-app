@@ -1,0 +1,275 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+/* @import url('https://fonts.googleapis.com/css?family=Turret+Road&display=swap'); */
+
+body {
+  background-image: url("/background.jpg");
+  color: rgb(49, 47, 47);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+h1 {
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 48px;
+  text-shadow: 5px 5px 5px grey;
+}
+
+.table-container {
+  font-size: 20px;
+  margin-top: 35px;
+  width: 80%;
+  margin: auto;
+}
+
+.table-row {
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+}
+
+.table-column {
+  background-color: rgba(145, 215, 236, 0.8);
+  margin: 3px;
+  padding: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.name, .phone {
+  flex-basis: 15%;
+  display: inline-block;
+}
+
+.email {
+  flex-grow: 2;
+  flex-basis: 15%;
+}
+
+.pageHeader {
+  font-weight: bolder;
+}
+
+.edit,
+.delete,
+.history {
+  flex-basis: 5%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.add-entry {
+  flex-basis: 5%;
+  background-color: cornflowerblue;
+  text-align: center;
+  cursor: pointer;
+}
+
+button {
+  padding: 15px;
+  border-radius: 7px;
+  border: none;
+  float: right;
+  margin: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  padding: 13px;
+}
+
+.disable-modal {
+  display: none;
+}
+
+.enable-modal {
+  display: block;
+}
+
+i {
+  pointer-events: none;
+}
+
+.hidden {
+	display: none;
+}
+
+
+/* Modal css begins */
+#newContactModal {
+	width: 600px;
+	padding: 10px;
+	border-radius: 7px;
+	z-index: 99;
+	top: 50px;
+	position: absolute;
+	display: center center;
+  margin-left: calc(50% - 350px);
+  background-color: rgba(223, 210, 210, 0.8);
+  /* float: left; */
+}
+
+.modalHeader {
+	font-size: 30px;
+	font-family: 'Righteous';
+	text-align: center;
+}
+#newContactName,
+#newContactPhone,
+#newContactEmail{
+display: block;
+margin-right: 0;
+}
+#newContactModal input {
+  display: block;
+  display: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 3px;
+  width: 70%;
+}
+.input-error {
+  background-color: rgb(226, 154, 154);
+}
+
+#backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+}
+
+#newContactCancelBtn {
+  display: inline-block;
+	background-color: rgb(233, 59, 59);
+}
+
+#newContactSaveBtn {
+  margin-right: 29px;
+  border-radius: 7px;
+  display: inline-block;
+  background-color: rgb(30, 123, 49);
+}
+.editContactDetails {
+	background-color: rgba(223, 210, 210, 0.8);
+	width: 600px;
+	padding: 10px;
+	border-radius: 7px;
+	z-index: 99;
+	top: 50px;
+	position: absolute;
+	display: center center;
+	margin-left: calc(50% - 250px);
+}
+
+#input-name,
+#input-phone,
+#input-email {
+	display: block;
+	display: center;
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px;
+	width: 70%;
+}
+
+#editCancelBtn {
+  border-radius: 7px;
+	background-color: rgb(233, 59, 59);
+}
+
+#editSubmitBtn {
+  margin-right: 29px;
+  border-radius: 7px;
+  background-color: rgb(30, 123, 49);}
+button {
+	padding: 15px;
+	border-radius: 7px;
+	border: none;
+	float: right;
+	margin: 5px;
+	cursor: pointer;
+}
+
+button:hover {
+	color: rgba(9, 146, 238, 0.452);
+}
+
+.disable-modal {
+	visibility: hidden;
+}
+.enable-modal {
+	visibility: visible;
+}
+.disable-editContact {
+	visibility: hidden;
+}
+.enable-editContact {
+	visibility: visible;
+}
+
+i {
+	pointer-events: none;
+}
+
+#addNumberBtn,
+#addEmailInput {
+  border-radius: 7px;
+  display: inline;
+}
+
+
+.disable-history {
+	visibility: hidden;
+}
+.enable-history {
+	visibility: visible;
+}
+
+.hidden {
+	display: none;
+}
+
+.contactHistoryCard {
+  display: inline-block;
+	font-size: 14px;
+	background: rgba(166, 216, 236, 0.708);
+	color: black;
+  padding: 15px;
+  border-radius: 7px;
+  margin-bottom: 10px;
+  width: 25%;
+}
+
+.contactHistoryCard:hover {
+	background: rgb(196, 193, 193);
+}
+
+.contactHistoryCard.chosen {
+  border-style: double;
+  border-color: black;
+  display: inline-block;
+	background: rgb(145, 213, 233, 0.708);
+}
+
+.contactHistoryCardButton {
+  background: green;
+  border-radius: 7px;
+	padding: 10px;
+	cursor: pointer;
+}
+.cancelHistoryChange {
+  background: red;
+  border-radius: 7px;
+	padding: 10px;
+	cursor: pointer;
+}
