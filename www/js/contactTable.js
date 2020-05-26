@@ -5,35 +5,6 @@ class AllContacts {
     this.listeners = listeners;
   }
 
-  editContact = (dataKey) => {
-    let contactToEdit = {
-      name: document.querySelector('#input-name').value,
-      phone: document.querySelector('#input-phone').value,
-      email: document.querySelector('#input-email').value
-    };
-
-    let contact = contacts[dataKey];
-    contact.history.push(contactToEdit)
-    contact.position++;
-
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-    this.enableDisableEditContactDetails('disable');
-    this.refreshDOMTable();
-  };
-
-  enableDisableEditContactDetails = (option, key) => {
-    let newContactName = document.querySelector('#newContactName');
-    let newContactPhone = document.querySelector('#newContactPhone');
-    let newContactEmail = document.querySelector('#newContactEmail');
-    newContactName.value = '';
-    newContactPhone.value = '';
-    newContactEmail.value = '';
-
-    let editContact = document.querySelector('#editContact');
-    editContact.className = `${option}-editContact`;
-    editContact.setAttribute('data-index', key)
-  };
-
   // only push to inside refreshDOMTable because that function 
   // also kills the old listeners each time it runs
   refreshDOMTable = () => {
@@ -47,8 +18,6 @@ class AllContacts {
     historyBody.setAttribute('class', 'historyBody')
     tableContainer.append(historyBody)
     tableContainer.append(newTableBody);
-
-
 
     for (let i = 0; i < contacts.length; i++) {
       let currentRow = document.createElement('div');
@@ -124,7 +93,7 @@ class AllContacts {
 
     let createNewContact = () => {
       let newContactName = document.querySelector('#newContactName').value;
-      let newContactPhone= document.querySelector('#newContactPhone').value;
+      let newContactPhone = document.querySelector('#newContactPhone').value;
       let newContactEmail = document.querySelector('#newContactEmail').value;
 
       if (newContactName === '')
@@ -226,15 +195,10 @@ class AllContacts {
     // listen to add phone input button
     listeners.push(listen('click', '.btn-add-more-phone', e => {
       const addMorePhonenumbers = (e) => {
-        let counter = 1;
-        for (let i = 0; i < 3; i++) {
-          counter++
-        }
         let myRow = document.querySelector('#id-row-phone');
         let inputfieldMorePhonenumber = document.createElement('input');
         inputfieldMorePhonenumber.setAttribute('type', 'text');
         inputfieldMorePhonenumber.setAttribute('value', '');
-        inputfieldMorePhonenumber.setAttribute('id', `${counter}`);
         inputfieldMorePhonenumber.setAttribute('class', 'newContactPhone');
         myRow.append(inputfieldMorePhonenumber);
       }
@@ -253,7 +217,6 @@ class AllContacts {
         inputfieldMoreEmail.setAttribute('id', 'newContactEmail');
         inputfieldMoreEmail.setAttribute('class', 'newContactEmail');
         myRow.append(inputfieldMoreEmail);
-        console.log('add email', inputfieldMoreEmail);
       }
       if (e.target.closest('.btn-add-more-email')) {
         addMoreEmail();
@@ -289,15 +252,12 @@ class AllContacts {
       })
       contact = contact[0];
 
-      // fill historyBody with all versions
+      // put all contact versions in history
       let historyBody = document.querySelector('.historyBody')
       let chosen = parseInt(contact.position);
       let chosenId = contact.id;
 
-
       function contactHistoryCard(data, index) {
-        console.log(data);
-
         return `
         <div class="contactHistoryCard${index === chosen ? ' chosen' : ''}" data-key="${index}">
           <div class="${index === chosen ? '' : 'hidden'}">
@@ -329,7 +289,7 @@ class AllContacts {
     // Listen for contactHistoryCard buttons to set the new version
     listen('click', '.contactHistoryCardButton', e => {
       let id = e.target.getAttribute('data-ref')
-      let newPositionKey = e.target.getAttribute('data-key')
+      let newPosition = e.target.getAttribute('data-key')
 
       let contact = contacts.filter(contact => {
         if (contact.id == id) {
@@ -338,7 +298,7 @@ class AllContacts {
       });
 
       // Update contact position and save
-      contact[0].position = newPositionKey
+      contact[0].position = newPosition
       localStorage.setItem("contacts", JSON.stringify(contacts));
 
       // Also clear the contents of historyBody
@@ -357,7 +317,35 @@ class AllContacts {
       }
     }));
   };
+  editContact = (dataKey) => {
+    let contactToEdit = {
+      name: document.querySelector('#input-name').value,
+      phone: document.querySelector('#input-phone').value,
+      email: document.querySelector('#input-email').value
+    };
 
+    let contact = contacts[dataKey];
+    contact.history.push(contactToEdit)
+    contact.position++;
+
+
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+    this.enableDisableEditContactDetails('disable');
+    this.refreshDOMTable();
+  };
+
+  enableDisableEditContactDetails = (option, key) => {
+    let newContactName = document.querySelector('#newContactName');
+    let newContactPhone = document.querySelector('#newContactPhone');
+    let newContactEmail = document.querySelector('#newContactEmail');
+    newContactName.value = '';
+    newContactPhone.value = '';
+    newContactEmail.value = '';
+
+    let editContact = document.querySelector('#editContact');
+    editContact.className = `${option}-editContact`;
+    editContact.setAttribute('data-index', key)
+  };
 };
 
 new AllContacts();
